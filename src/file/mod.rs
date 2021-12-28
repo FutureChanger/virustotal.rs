@@ -13,7 +13,7 @@ impl <'a>VtClient<'a> {
     /// let vt = VtClient::new("Your API Key");
     /// vt.scan_file("eicar.txt")
     /// ```
-    pub fn scan_file(self, filename: &str) -> FileScanResponse {
+    pub fn scan_file(self, filename: &str) -> Result<FileScanResponse, anyhow::Error> {
     
         let form = reqwest::multipart::Form::new()
             .text("apikey".to_string(), self.api_key.to_string())
@@ -24,11 +24,10 @@ impl <'a>VtClient<'a> {
         let mut resp = Client::new()
             .post(url)
             .multipart(form)
-            .send()
-            .unwrap();
+            .send()?;
 
-        let text: &str = &resp.text().unwrap();
-        from_str(&text).unwrap()
+        let text: &str = &resp.text()?;
+        from_str(&text)?
     }
 
     /// Retrieve file scan reports
