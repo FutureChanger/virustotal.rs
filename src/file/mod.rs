@@ -27,7 +27,7 @@ impl <'a>VtClient<'a> {
             .send()?;
 
         let text: &str = &resp.text()?;
-        from_str(&text)?
+        Ok(from_str(&text)?)
     }
 
     /// Retrieve file scan reports
