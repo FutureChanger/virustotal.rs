@@ -21,7 +21,7 @@ impl <'a>VtClient<'a> {
             .form(&[("apikey", self.api_key), ("url", target_url)])
             .send().expect("Probably maximum request limit achieved!");
         let text: &str = &resp.text()?;
-        from_str(&text)?
+        from_str(&text).unwrap()
     }
 
     /// Retrieve URL scan reports
