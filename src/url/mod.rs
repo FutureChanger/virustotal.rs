@@ -19,10 +19,9 @@ impl <'a>VtClient<'a> {
         let mut resp = Client::new()
             .post(url)
             .form(&[("apikey", self.api_key), ("url", target_url)])
-            .send()
-            .unwrap();
-        let text: &str = &resp.text().unwrap();
-        from_str(&text).unwrap()
+            .send().expect("Probably maximum request limit achieved!");
+        let text: &str = &resp.text()?;
+        from_str(&text)?
     }
 
     /// Retrieve URL scan reports
