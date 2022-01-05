@@ -1,6 +1,8 @@
 use reqwest::Client;
 use serde_json::from_str;
 use super::{VtClient, UrlScanResponse, UrlReportResponse};
+use std::io;
+use std::io::Write;
 
 impl <'a>VtClient<'a> {
     /// Scan an URL
@@ -21,6 +23,9 @@ impl <'a>VtClient<'a> {
             .form(&[("apikey", self.api_key), ("url", target_url)])
             .send().expect("Probably maximum request limit achieved!");
         let text: &str = &resp.text().unwrap();
+
+        let x =format!("{}",text);
+        io::stdout().write_all(x.as_bytes()).expect("Could not print the scan");
         from_str(&text).unwrap()
     }
 
@@ -46,6 +51,8 @@ impl <'a>VtClient<'a> {
             .unwrap();
     
         let text: &str = &resp.text().unwrap();
+        let x =format!("{}",text);
+        io::stdout().write_all(x.as_bytes()).expect("Could not print the report");
         from_str(&text).unwrap()
     }
 }
