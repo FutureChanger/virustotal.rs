@@ -20,7 +20,7 @@ impl <'a>VtClient<'a> {
             .post(url)
             .form(&[("apikey", self.api_key), ("url", target_url)])
             .send().expect("Probably maximum request limit achieved!");
-        let text: &str = &resp.text()?;
+        let text: &str = &resp.text().unwrap();
         from_str(&text).unwrap()
     }
 
