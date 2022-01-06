@@ -18,7 +18,7 @@ impl <'a>VtClient<'a> {
     /// ```
     pub fn scan_url(self, target_url: &str) -> UrlScanResponse {
 
-        let x =format!("{}",resource);
+        let x =format!("{}",target_url);
         io::stdout().write_all(x.as_bytes()).expect("Could not print the scan");
 
         let url = &[self.endpoint, "/url/scan"].join("");
