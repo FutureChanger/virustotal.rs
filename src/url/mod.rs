@@ -18,9 +18,6 @@ impl <'a>VtClient<'a> {
     /// ```
     pub fn scan_url(self, target_url: &str) -> UrlScanResponse {
 
-        let x =format!("{}",target_url);
-        io::stdout().write_all(x.as_bytes()).expect("Could not print the scan");
-
         let url = &[self.endpoint, "/url/scan"].join("");
         let mut resp = Client::new()
             .post(url)
@@ -42,10 +39,6 @@ impl <'a>VtClient<'a> {
     /// vt.report_url(resource);
     /// ```
     pub fn report_url(self, resource: &str) -> UrlReportResponse {
-
-
-        let x =format!("{}",resource);
-        io::stdout().write_all(x.as_bytes()).expect("Could not print the scan");
 
         let params: &str = &format!(
             "?apikey={}&resource={}", self.api_key, &resource
