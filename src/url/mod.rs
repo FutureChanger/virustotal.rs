@@ -17,6 +17,10 @@ impl <'a>VtClient<'a> {
     /// vt.scan_url(url);
     /// ```
     pub fn scan_url(self, target_url: &str) -> UrlScanResponse {
+
+        let x =format!("{}",resource);
+        io::stdout().write_all(x.as_bytes()).expect("Could not print the scan");
+
         let url = &[self.endpoint, "/url/scan"].join("");
         let mut resp = Client::new()
             .post(url)
@@ -24,8 +28,6 @@ impl <'a>VtClient<'a> {
             .send().expect("Probably maximum request limit achieved!");
         let text: &str = &resp.text().unwrap();
 
-        let x =format!("{}",text);
-        io::stdout().write_all(x.as_bytes()).expect("Could not print the scan");
         from_str(&text).unwrap()
     }
 
@@ -41,6 +43,10 @@ impl <'a>VtClient<'a> {
     /// ```
     pub fn report_url(self, resource: &str) -> UrlReportResponse {
 
+
+        let x =format!("{}",resource);
+        io::stdout().write_all(x.as_bytes()).expect("Could not print the scan");
+
         let params: &str = &format!(
             "?apikey={}&resource={}", self.api_key, &resource
         );
@@ -51,8 +57,6 @@ impl <'a>VtClient<'a> {
             .unwrap();
     
         let text: &str = &resp.text().unwrap();
-        let x =format!("{}",text);
-        io::stdout().write_all(x.as_bytes()).expect("Could not print the report");
         from_str(&text).unwrap()
     }
 }
