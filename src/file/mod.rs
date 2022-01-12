@@ -52,7 +52,6 @@ impl <'a>VtClient<'a> {
             .unwrap();
         
         let text: &str = &resp.text().unwrap();
-        println!("{}",text);
         from_str(&text).unwrap()
      
     }
